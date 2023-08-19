@@ -32,7 +32,7 @@ void *s21_to_upper(const char *str);
 void *s21_trim(const char *src, const char *trim_chars);
 void *s21_insert(const char *src, const char *str, s21_size_t start_index);
 
-char *s21_strcpy(char *dest, const char *src);
+void s21_strcpy(char *dest, const char *src);
 char *s21_strcat(char *dest, const char *src);
 int s21_strcmp(const char *str1, const char *str2);
 

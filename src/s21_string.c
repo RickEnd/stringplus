@@ -546,13 +546,8 @@ static s21_size_t pos_cut(const char *src, const char *trim_chars) {
   return res;
 }
 
-char *s21_strcpy(char *dest, const char *src) {
-  s21_size_t i = 0;
-  while (src[i] != '\0') {
-    dest[i] = src[i];
-    i++;
-  }
-  return dest;
+void s21_strcpy(char *dest, const char *src) {
+  while (*src != '\0') *dest++ = *src++;
 }
 
 char *s21_strcat(char *dest, const char *src) {
