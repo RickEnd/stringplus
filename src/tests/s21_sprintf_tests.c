@@ -768,8 +768,8 @@ END_TEST
 START_TEST(sprintf_test72) {
   char array1[100];
   char array2[100];
-  int a = sprintf(array1, "|%li%hi|", LONG_MIN, +32767);
-  int b = s21_sprintf(array2, "|%li%hi|", LONG_MIN, +32767);
+  int a = sprintf(array1, "|%li%i|", LONG_MIN, +32767);
+  int b = s21_sprintf(array2, "|%li%i|", LONG_MIN, +32767);
   ck_assert_str_eq(array1, array2);
   ck_assert_int_eq(a, b);
 }
@@ -778,8 +778,8 @@ END_TEST
 START_TEST(sprintf_test73) {
   char array1[100];
   char array2[100];
-  int a = sprintf(array1, "|%li%hi|", LONG_MIN, +32767);
-  int b = s21_sprintf(array2, "|%li%hi|", LONG_MIN, +32767);
+  int a = sprintf(array1, "|%li%i|", LONG_MIN, +32767);
+  int b = s21_sprintf(array2, "|%li%i|", LONG_MIN, +32767);
   ck_assert_str_eq(array1, array2);
   ck_assert_int_eq(a, b);
 }

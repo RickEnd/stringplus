@@ -29,14 +29,17 @@ int s21_memcmp(const void *str1, const void *str2, s21_size_t n) {
 }
 
 void *s21_memcpy(void *dest, const void *src, s21_size_t n) {
-  for (s21_size_t i = 0; i < n; i++) *(char *)(dest + i) = *(char *)(src + i);
+  char *res = (char *)dest;
+  char *tmp = (char *)src;
+  for (s21_size_t i = 0; i < n; i++) *(char *)(res + i) = *(char *)(tmp + i);
   return dest;
 }
 
 void *s21_memset(void *str, int c, size_t n) {
+  unsigned char *res = (unsigned char *)str;
   for (s21_size_t i = 0; i < n; i++)
-    *(unsigned char *)(str + i) = (unsigned char)c;
-  return str;
+    *(unsigned char *)(res + i) = (unsigned char)c;
+  return res;
 }
 
 char *s21_strncat(char *dest, const char *src, s21_size_t n) {
@@ -103,7 +106,6 @@ char *s21_strerror(int errnum) {
   char *err_msg = S21_NULL;
 #ifdef __APPLE__
   s21_size_t num_of_msgs = 106;
-  static char *errmsg = "Unknown error: ";
   static char *arr_msgs[] = {"Undefined error: 0",
                              "Operation not permitted",
                              "No such file or directory",
@@ -210,10 +212,10 @@ char *s21_strerror(int errnum) {
                              "Policy not found",
                              "State not recoverable",
                              "Previous owner died",
-                             "Interface output queue is full"};
+                             "Interface output queue is full",
+                             "Unknown error: "};
 #elif __linux__ || __unix__
   s21_size_t num_of_msgs = 133;
-  static char *errmsg = "Unknown error ";
   static char *arr_msgs[] = {
       "Success",
       "Operation not permitted",
@@ -348,7 +350,8 @@ char *s21_strerror(int errnum) {
       "Owner died",
       "State not recoverable",
       "Operation not possible due to RF-kill",
-      "Memory page has hardware error"};
+      "Memory page has hardware error",
+      "Unknown error "};
 #else
 #error "Unknown compiler"
 #endif
@@ -358,7 +361,7 @@ char *s21_strerror(int errnum) {
   else {
     static char part1[256] = "";
     part1[0] = '\0';
-    s21_strcat(part1, errmsg);
+    s21_strcat(part1, arr_msgs[num_of_msgs + 1]);
     char part2[32] = "";
     part2[0] = '\0';
     if (errnum == -2147483648)
