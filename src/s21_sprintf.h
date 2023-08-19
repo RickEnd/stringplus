@@ -1,5 +1,5 @@
-#ifndef S21_SPRINTF_H
-#define S21_SPRINTF_H
+#ifndef C2_S21_STRINGPLUS3_S21_SPRINTF_H
+#define C2_S21_STRINGPLUS3_S21_SPRINTF_H
 
 #include <math.h>
 #include <stdlib.h>
@@ -48,4 +48,4 @@ void add_flags(pr_spec *spec, char **buff);
 void add_precision(pr_spec *spec, char **buff);
 void add_sciprecision(char **buff, pr_spec *spec);
 
-#endif
+#endif  // C2_S21_STRINGPLUS3_S21_SPRINTF_H

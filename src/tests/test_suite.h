@@ -1,5 +1,5 @@
-#ifndef SRC_TEST_SUITECASES_H_
-#define SRC_TEST_SUITECASES_H_
+#ifndef C2_S21_STRINGPLUS3_TEST_TEST_SUITECASES_H
+#define C2_S21_STRINGPLUS3_TEST_TEST_SUITECASES_H
 
 #include <check.h>
 #include <limits.h>
@@ -27,9 +27,8 @@ Suite *suite_to_lower(void);
 Suite *suite_insert(void);
 Suite *suite_trim(void);
 Suite *suite_sprintf(void);
-// Suite *suite_sscanf(void);
 
 void run_tests(void);
 void run_testcases(Suite *testcase);
 
-#endif  // SRC_TEST_SUITECASES_H_
+#endif  // C2_S21_STRINGPLUS3_TEST_TEST_SUITECASES_H

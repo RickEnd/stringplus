@@ -255,7 +255,7 @@ void spec_s(pr_spec *spec, char **buff, va_list arguments) {
   else {
     size_t len_of_s = s21_strlen(temp) + 1;
     if (len_of_s > 255) {
-      char *temp = (char *)realloc(*buff, (len_of_s * sizeof(char)));
+      temp = (char *)realloc(*buff, (len_of_s * sizeof(char)));
       if (temp == S21_NULL) {
         free(temp);
         spec->error = -1;
@@ -295,7 +295,7 @@ void spec_o_u_x_X_p(pr_spec *spec, char **buff, va_list arguments) {
   char *temp = (char *)calloc(252, sizeof(char));
   if (spec->spec_symb == 'p') {
     if (value == 0)
-      s21_strcpy(*buff, "(nil)");  // s21_s21_strcpy
+      s21_strcpy(*buff, "(nil)");
     else {
       s21_uitoa((uint64_t)value, 16, temp);
       s21_strcpy(*buff, "0x");
@@ -328,10 +328,11 @@ void spec_o_u_x_X_p(pr_spec *spec, char **buff, va_list arguments) {
 }
 
 void s21_itoa(int64_t n, int type, char s[]) {
-  int64_t it = 0, sign = n;
+  int64_t sign = n;
   if (n == INT64_MIN)
     s21_strcpy(s, "-9223372036854775808");
   else {
+    int64_t it = 0;
     if (sign < 0) n = -n;
     do {
       s[it++] = n % type + ((n % type) <= 9 ? '0' : 'W');

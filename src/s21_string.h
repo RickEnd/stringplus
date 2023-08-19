@@ -1,5 +1,5 @@
-#ifndef S21_STRING_H
-#define S21_STRING_H
+#ifndef C2_S21_STRINGPLUS3_S21_STRING_H
+#define C2_S21_STRINGPLUS3_S21_STRING_H
 
 #include <stdarg.h>
 #include <stdint.h>
@@ -36,4 +36,4 @@ char *s21_strcpy(char *dest, const char *src);
 char *s21_strcat(char *dest, const char *src);
 int s21_strcmp(const char *str1, const char *str2);
 
-#endif
+#endif  // C2_S21_STRINGPLUS3_S21_STRING_H

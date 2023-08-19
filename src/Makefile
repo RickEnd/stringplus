@@ -38,6 +38,13 @@ else
     CHECK_FLAGS := -lcheck
 endif
 
+ifeq ($(OS), Linux)
+    LEAKS := valgrind -s --leak-check=full --show-leak-kinds=all --track-origins=yes ./test
+endif
+ifeq ($(OS), Darwin)
+    LEAKS := leaks --atExit -- ./test
+endif
+
 SRCS_LIBS :=  \
 			s21_string.c \
 			s21_sprintf.c
@@ -56,26 +63,17 @@ s21_string.a: $(OBJS) $(HEADER)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-test: $(NAME) $(SRC_TEST)
+test: clean $(NAME) $(SRC_TEST)
 	$(CC) $(CFLAGS) $(SRC_TEST) $(NAME) $(CHECK_FLAGS) -o $(TEST)
 	./$(TEST)
 
 lint: $(SRC_TEST) $(SRCS_LIBS) $(HEADER) $(HEADER_TEST) 
 	clang-format -i $^
 
-check_MacOS: $(NAME) $(SRC_TEST) $(HEADER_TEST)
-	@clear
-	cppcheck --enable=all --suppress=missingIncludeSystem . $(HEADER) $(SRC_LIBS) $(SRC_TEST) $(HEADER_TEST)
-	clang-format -n $(HEADER) $(SRC_LIBS) $(SRC_TEST) $(HEADER_TEST)
-	$(CC) $(CFLAGS) -g $(SRC_TEST) $(NAME) $(CHECK_FLAGS) -o $(TEST)
-	CK_FORK=no leaks --atExit -- ./$(TEST)
-
-check_linux: $(NAME) $(SRC_TEST) $(HEADER_TEST)
-	@clear
-	cppcheck --enable=all --suppress=missingIncludeSystem . $(HEADER) $(SRC_LIBS) $(SRC_TEST) $(HEADER_TEST)
-	clang-format -n $(HEADER) $(SRC_LIBS) $(SRC_TEST) $(HEADER_TEST)
-	$(CC) $(CFLAGS) -g $(SRC_TEST) $(NAME) $(CHECK_FLAGS) -o $(TEST)
-	valgrind --tool=memcheck --leak-check=yes ./$(TEST)
+check:
+	clang-format -n *.c *.h */*.h */*.c
+	cppcheck --enable=all --force --suppress=missingIncludeSystem *.h *.c */*.c */*.h
+	$(LEAKS)
 
 gcov_report: $(SRC_TEST) $(SRCS)
 	$(CC) $(CFLAGS) $(GCOVFLAGS) $(SRC_TEST) $(SRCS) $(CHECK_FLAGS) -o $(REPORT)
@@ -84,6 +82,9 @@ gcov_report: $(SRC_TEST) $(SRCS)
 	lcov -t "$(REPORT)" -o $(REPORT).info -c -d .
 	genhtml -o report $(REPORT).info
 	rm -rf ./*.gcno ./*.gcda ./$(REPORT).*s
+	open report/index.html
+
+rebuild: clean all
 
 clean: 
 	rm -rf report GcovReport GcovReport.info *.o *.a *.gcno *.gcda test
