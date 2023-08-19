@@ -70,9 +70,10 @@ test: clean $(NAME) $(SRC_TEST)
 lint: $(SRC_TEST) $(SRCS_LIBS) $(HEADER) $(HEADER_TEST) 
 	clang-format -i $^
 
-check:
+check: clean $(NAME) $(SRC_TEST)
 	clang-format -n *.c *.h */*.h */*.c
 	cppcheck --enable=all --force --suppress=missingIncludeSystem *.h *.c */*.c */*.h
+	$(CC) $(CFLAGS) $(SRC_TEST) $(NAME) $(CHECK_FLAGS) -o $(TEST)
 	$(LEAKS)
 
 gcov_report: $(SRC_TEST) $(SRCS)
