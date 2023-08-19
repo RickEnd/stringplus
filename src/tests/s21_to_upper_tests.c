@@ -45,17 +45,6 @@ START_TEST(to_upper_test4) {
 }
 END_TEST
 
-// START_TEST(to_upper_test5) {
-//   char str[4] = {127, 89, -6, 0};  // warning из за переполнения типов
-//   char *res = S21_NULL;
-//   char *tmp = s21_to_upper(str);
-
-//   ck_assert_ptr_eq(tmp, res);
-
-//   free(tmp);
-// }
-// END_TEST
-
 START_TEST(to_upper_test6) {
   char *str = S21_NULL;
   char *res = S21_NULL;
@@ -89,7 +78,6 @@ Suite *suite_to_upper(void) {
   tcase_add_test(tc16, to_upper_test2);
   tcase_add_test(tc16, to_upper_test3);
   tcase_add_test(tc16, to_upper_test4);
-  // tcase_add_test(tc16, to_upper_test5);
   tcase_add_test(tc16, to_upper_test6);
   tcase_add_test(tc16, to_upper_test7);
   suite_add_tcase(s16, tc16);

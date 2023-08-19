@@ -61,7 +61,7 @@ START_TEST(insert_test5) {
 
   ck_assert_pstr_eq(tmp, res);
 
-  free(tmp);
+  // free(tmp);
 }
 END_TEST
 
@@ -87,7 +87,7 @@ START_TEST(insert_test7) {
 
   ck_assert_ptr_eq(tmp, res);
 
-  free(tmp);
+  // free(tmp);
 }
 END_TEST
 
